@@ -1,0 +1,367 @@
+basePath: /
+definitions:
+  domain.Author:
+    properties:
+      biography:
+        type: string
+      books:
+        items:
+          $ref: '#/definitions/domain.Book'
+        type: array
+      createdAt:
+        format: date-time
+        type: string
+      id:
+        type: integer
+      name:
+        type: string
+    type: object
+  domain.Book:
+    properties:
+      author:
+        $ref: '#/definitions/domain.Author'
+      authorID:
+        type: integer
+      available:
+        type: boolean
+      createdAt:
+        format: date-time
+        type: string
+      id:
+        type: integer
+      title:
+        type: string
+    type: object
+  handler.Response:
+    properties:
+      data: {}
+      error_code:
+        type: integer
+      success:
+        type: boolean
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: Documentation for petstore
+  title: Swagger Petstore
+  version: "1.0"
+paths:
+  /author:
+    post:
+      consumes:
+      - application/json
+      description: create author
+      parameters:
+      - description: author
+        in: body
+        name: author
+        required: true
+        schema:
+          $ref: '#/definitions/domain.Author'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.Response'
+      summary: create author
+      tags:
+      - author
+  /author/{authorId}:
+    delete:
+      consumes:
+      - application/json
+      description: delete author
+      parameters:
+      - description: id author
+        in: path
+        name: authorId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.Response'
+      summary: delete author
+      tags:
+      - author
+    get:
+      consumes:
+      - application/json
+      description: get author
+      parameters:
+      - description: id author
+        in: path
+        name: authorId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.Response'
+      summary: get author
+      tags:
+      - author
+  /author/all:
+    get:
+      consumes:
+      - application/json
+      description: get all
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.Response'
+      summary: get all authors
+      tags:
+      - author
+  /author/books/{authorId}:
+    get:
+      consumes:
+      - application/json
+      description: get books
+      parameters:
+      - description: authorId
+        in: path
+        name: authorId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.Response'
+      summary: get by books author
+      tags:
+      - book
+  /author/top:
+    get:
+      consumes:
+      - application/json
+      description: get top
+      parameters:
+      - description: limit
+        in: query
+        name: limit
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.Response'
+      summary: get top authors
+      tags:
+      - author
+  /book:
+    post:
+      consumes:
+      - application/json
+      description: add book
+      parameters:
+      - description: book
+        in: body
+        name: book
+        required: true
+        schema:
+          $ref: '#/definitions/domain.Book'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.Response'
+      summary: add book
+      tags:
+      - book
+  /book/{bookId}:
+    delete:
+      consumes:
+      - application/json
+      description: delete book
+      parameters:
+      - description: id book
+        in: path
+        name: bookId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.Response'
+      summary: delete book
+      tags:
+      - book
+    get:
+      consumes:
+      - application/json
+      description: get book
+      parameters:
+      - description: id book
+        in: path
+        name: bookId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.Response'
+      summary: get book
+      tags:
+      - book
+  /rental/{bookId}:
+    delete:
+      consumes:
+      - application/json
+      description: return book
+      parameters:
+      - description: bookId
+        in: path
+        name: bookId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.Response'
+      summary: return book
+      tags:
+      - rental
+  /rental/{bookId}/{userId}:
+    post:
+      consumes:
+      - application/json
+      description: rental book
+      parameters:
+      - description: bookId
+        in: path
+        name: bookId
+        required: true
+        type: string
+      - description: userID
+        in: path
+        name: userId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.Response'
+      summary: rental book
+      tags:
+      - rental
+  /user:
+    post:
+      consumes:
+      - application/x-www-form-urlencoded
+      description: add user
+      parameters:
+      - description: name
+        in: formData
+        name: name
+        required: true
+        type: string
+      - description: email
+        in: formData
+        name: email
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.Response'
+      summary: add user
+      tags:
+      - user
+  /user/{userId}:
+    delete:
+      consumes:
+      - application/json
+      description: delete user
+      parameters:
+      - description: id user
+        in: path
+        name: userId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.Response'
+      summary: delete user
+      tags:
+      - user
+    get:
+      consumes:
+      - application/json
+      description: get user
+      parameters:
+      - description: get user
+        in: path
+        name: userId
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.Response'
+      summary: get user
+      tags:
+      - user
+  /user/all:
+    get:
+      consumes:
+      - application/json
+      description: get all user
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/handler.Response'
+      summary: get all user
+      tags:
+      - user
+securityDefinitions:
+  ApiKeyAuth:
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"
