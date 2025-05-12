@@ -14,8 +14,8 @@ import (
 )
 
 // @title						Swagger Petstore
-// @version					1.0
-// @description				Documentation for petstore
+// @version						1.0
+// @description					Documentation for petstore
 // @host						localhost:8080
 // @BasePath					/
 // @securityDefinitions.apikey	ApiKeyAuth
