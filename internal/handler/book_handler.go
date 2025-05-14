@@ -3,7 +3,7 @@ package handler
 import (
 	"encoding/json"
 	"library/internal/domain"
-	"library/internal/facade"
+	"library/internal/usecase"
 	"library/responder"
 	"net/http"
 	"strconv"
@@ -16,11 +16,11 @@ type Booker interface {
 }
 
 type BookHandler struct {
-	bookUC    facade.Facader
+	bookUC    usecase.Booker
 	responder responder.Responder
 }
 
-func NewBookHandler(bookUC facade.Facader, responder responder.Responder) Booker {
+func NewBookHandler(bookUC usecase.Booker, responder responder.Responder) Booker {
 	return &BookHandler{
 		bookUC:    bookUC,
 		responder: responder,

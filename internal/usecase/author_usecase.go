@@ -17,13 +17,11 @@ type Authorer interface {
 
 type AuthorUseCase struct {
 	authorRepo repository.Authorer
-	bookRepo   repository.Booker
 }
 
-func NewAuthorUseCase(authorRepo repository.Authorer, bookRepo repository.Booker) Authorer {
+func NewAuthorUseCase(authorRepo repository.Authorer) Authorer {
 	return &AuthorUseCase{
 		authorRepo: authorRepo,
-		bookRepo:   bookRepo,
 	}
 }
 

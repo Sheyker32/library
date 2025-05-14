@@ -25,7 +25,7 @@ func NewUserRepository(db *sqlx.DB) Userer {
 
 func (u UserRepository) Create(ctx context.Context, user *domain.User) error {
 	query := `INSERT INTO users (name, email, created_at) VALUES ($1, $2,$3) RETURNING id`
-	err := u.db.QueryRowContext(ctx, query, user.ID, user.Email, user.CreatedAt).Scan(&user.ID)
+	err := u.db.QueryRowContext(ctx, query, user.Name, user.Email, user.CreatedAt).Scan(&user.ID)
 	if err != nil {
 		return err
 	}

@@ -103,9 +103,9 @@ func (a *App) Bootstrap(options ...interface{}) Runner {
 	rentRepo := repository.NewRentalRepository(a.db)
 
 	userUC := usecase.NewUserUseCase(userRepo)
-	authorUC := usecase.NewAuthorUseCase(authorRepo, bookRepo)
+	authorUC := usecase.NewAuthorUseCase(authorRepo)
 	bookUC := usecase.NewBookUseCase(bookRepo)
-	rentUC := usecase.NewRentUseCase(userRepo, bookRepo, rentRepo)
+	rentUC := usecase.NewRentUseCase(rentRepo)
 
 	facade := facade.NewLibraryFacade(a.db, authorUC, bookUC, rentUC, userUC)
 
@@ -115,10 +115,11 @@ func (a *App) Bootstrap(options ...interface{}) Runner {
 		fmt.Println(err.Error())
 	}
 
-	authorHandler := handler.NewAuthorHandler(facade, respond)
-	bookHandler := handler.NewBookHandler(facade, respond)
+	authorHandler := handler.NewAuthorHandler(authorUC, respond)
+	bookHandler := handler.NewBookHandler(bookUC, respond)
+	userHandler := handler.NewUserHandler(userUC, respond)
 	rentHandler := handler.NewRentHandler(facade, respond)
-	userHandler := handler.NewUserHandler(facade, respond)
+
 	r := router.NewApiRouter(authorHandler, bookHandler, rentHandler, userHandler)
 	a.srv = server.NewServer(r)
 

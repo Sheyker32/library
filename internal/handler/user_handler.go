@@ -2,7 +2,7 @@ package handler
 
 import (
 	"library/internal/domain"
-	"library/internal/facade"
+	"library/internal/usecase"
 	"library/responder"
 	"net/http"
 	"strconv"
@@ -17,11 +17,11 @@ type Userer interface {
 }
 
 type UserHandler struct {
-	userUC    facade.Facader
+	userUC    usecase.Userer
 	responder responder.Responder
 }
 
-func NewUserHandler(userUC facade.Facader, responder responder.Responder) Userer {
+func NewUserHandler(userUC usecase.Userer, responder responder.Responder) Userer {
 	return &UserHandler{
 		userUC:    userUC,
 		responder: responder,

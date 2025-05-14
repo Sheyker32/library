@@ -3,7 +3,7 @@ package handler
 import (
 	"encoding/json"
 	"library/internal/domain"
-	"library/internal/facade"
+	"library/internal/usecase"
 	"library/responder"
 	"net/http"
 	"strconv"
@@ -19,11 +19,11 @@ type Authorer interface {
 }
 
 type AuthorHandler struct {
-	authorUC  facade.Facader
+	authorUC  usecase.Authorer
 	responder responder.Responder
 }
 
-func NewAuthorHandler(authorUC facade.Facader, responder responder.Responder) Authorer {
+func NewAuthorHandler(authorUC usecase.Authorer, responder responder.Responder) Authorer {
 	return &AuthorHandler{
 		authorUC:  authorUC,
 		responder: responder,
